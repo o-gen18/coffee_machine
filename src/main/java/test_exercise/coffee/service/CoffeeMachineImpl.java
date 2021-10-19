@@ -10,7 +10,9 @@ import test_exercise.coffee.repository.CoffeeRecordRepository;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Imitates the work of coffee machine.
+ * Imitates the work of coffee machine. The machine can serve only one client at a time.
+ * This is backed by atomic boolean variable that holds whether or not the machine is working.
+ * While coffee machine is working it is impossible to order another coffee.
  * Marked as a service to be singleton.
  * Has private constructor to prohibit instantiation.
  */
@@ -20,27 +22,38 @@ public class CoffeeMachineImpl implements CoffeeMachine {
 
     private final CoffeeRecordRepository coffeeRecordRepository;
 
+    /**
+     * Indicates whether the machine is busy at a given moment.
+     */
     private AtomicBoolean isBusy = new AtomicBoolean(false);
 
     private CoffeeMachineImpl(CoffeeRecordRepository coffeeRecordRepository) {
         this.coffeeRecordRepository = coffeeRecordRepository;
     }
 
-    @Override
-    public boolean isInService() {
-        return isBusy.get();
-    }
-
+    /**
+     * Starts the coffee machine.
+     * @return true if the operation succeeded, otherwise false.
+     */
     @Override
     public boolean start() {
         return isBusy.compareAndSet(false, true);
     }
 
+    /**
+     * Stops the coffee machine.
+     * @return true if the operation succeeded, otherwise false.
+     */
     @Override
     public boolean stop() {
         return isBusy.compareAndSet(true, false);
     }
 
+    /**
+     * Imitates the working process of the coffee machine.
+     * @param coffee String representation of coffee type being ordered.
+     * @return coffee record instance storing information about the order.
+     */
     @Override
     public CoffeeRecord serve(String coffee) {
         CoffeeType coffeeType;

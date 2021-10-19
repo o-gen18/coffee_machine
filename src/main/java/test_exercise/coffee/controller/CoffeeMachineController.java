@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import test_exercise.coffee.model.CoffeeRecord;
 import test_exercise.coffee.repository.CoffeeRecordRepository;
 import test_exercise.coffee.service.CoffeeMachine;
-import test_exercise.coffee.service.CoffeeMachineImpl;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;

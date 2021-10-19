@@ -36,7 +36,7 @@ public enum CoffeeType {
      * of Hibernate to allow them convert the string representation of CoffeeType into
      * enum.
      *
-     * @param Type of the coffee.
+     * @param coffeeType The type of coffee.
      * @return Coffee type enum representation.
      */
     @JsonCreator
